@@ -1,6 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.webdriver.support import expected_conditions as EC
+from bs4 import BeautifulSoup as bs
 import time
 
 class InstagramBot:
@@ -9,70 +13,90 @@ class InstagramBot:
         self.password = password
         self.driver = webdriver.Firefox(executable_path=r'C:\Users\arthu\OneDrive\Área de Trabalho\geckodriver\geckodriver.exe')
 
-    def login(self):
-        driver = self.driver
-        driver.get('https://www.instagram.com/')
+    def login(self):  
+        self.driver.get('https://www.instagram.com/')
         time.sleep(2)
-        user_element = driver.find_element_by_xpath("//input[@name='username']")
-        user_element.clear()
-        user_element.send_keys(self.username)
-        password_element = driver.find_element_by_xpath("//input[@name='password']")
-        password_element.clear()
-        password_element.send_keys(self.password)
-        password_element.send_keys(Keys.RETURN)
-        time.sleep(6)
-        driver.find_element_by_xpath('//button[text()="Salvar informações"]').click()
-        time.sleep(5)
-        driver.find_element_by_xpath('//button[text()="Agora não"]').click()     
-        time.sleep(2)    
-        #self.curtir_fotos('memesbr')
-        self.stalkear('sr.frazao')
 
+        '''Inserido usuário'''
+        self.driver.find_element_by_xpath("//input[@name='username']").send_keys(self.username)
 
-    def stalkear(self, usuario):
-        driver = self.driver
-        driver.get('https://www.instagram.com/' + usuario + '/')
-        time.sleep(2)
-        for i in range(0, 2):
-            # CADA LINHA NO NAVEGADOR EQUIVALE A 11 LINES
-            driver.execute_script("window.scrollByLines(11)")
-        hrefs = driver.find_elements_by_tag_name('a')
-        pic_hrefs = [elem.get_attribute('href') for elem in hrefs]
-        [href for href in pic_hrefs if usuario in href]
+        '''inserindo senha'''
+        self.driver.find_element_by_xpath("//input[@name='password']").send_keys(self.password)
 
-        for pic_href in pic_hrefs:
-            driver.get(pic_href)
-            #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            driver.execute_script("window.scrollByLines(1)")
-            try:
-                driver.find_element_by_xpath('//button[text()="Curtir"]').click()
-                driver.find_element_by_xpath('//button[text()="Próximo"]').click()
-                time.sleep(6)
-            except Exception as e:
-                time.sleep(5)
+        '''submetendo dados e confirmando login'''
+        submit = self.driver.find_element_by_tag_name('form')
+        submit.submit()
 
-    def curtir_fotos(self, hashtag):
-        driver = self.driver
-        driver.get('https://www.instagram.com/explore/tags/' + hashtag + '/')
-        time.sleep(2)
-        for i in range(0, 2):
-            # CADA LINHA NO NAVEGADOR EQUIVALE A 11 LINES
-            driver.execute_script("window.scrollByLines(11)")
-        hrefs = driver.find_elements_by_tag_name('a')
-        pic_hrefs = [elem.get_attribute('href') for elem in hrefs]
-        [href for href in pic_hrefs if hashtag in href]
-        print(hashtag + ' fotos:  ' + str(len(pic_hrefs)))
-        
-        for pic_href in pic_hrefs:
-            driver.get(pic_href)
-            #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            driver.execute_script("window.scrollByLines(1)")
-            try:
-                driver.find_element_by_xpath('//button[text()="Curtir"]').click()
-                time.sleep(10)
-            except Exception as e:
-                time.sleep(5)
+        try:
+            """Fechando as notificações"""
+
+            """Primeira etapa de confirmação"""
+            notifications = WebDriverWait(self.driver, 8).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Agora não"]')))
+            notifications.click()
+
+            """Segunda etapa de confirmação"""
+            WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((By.XPATH, '//button[text()="Agora não"]'))).click()
+        except NoSuchElementException:
+            pass
     
+    def abrir_perfil(self, usuario):
+        try:
+            self.driver.get('https://www.instagram.com/' + usuario + '/')
+            time.sleep(1.5)
+        except NoSuchElementException:
+            print("Falha na busca")
 
-arthurbot = InstagramBot('zezediluciano', 'snake2.0') 
-arthurbot.login()
+    def abrir_primeira_foto(self):
+        try:
+            self.driver.find_element_by_xpath("//div[@class=\"eLAPa\"]").click()
+            time.sleep(4)
+        except NoSuchElementException:
+            print("O Usuário não possui foto ou você não tem permissão.") 
+
+    def proxima_foto(self):    
+        botao_proximo = "//a[text()=\"Próximo\"]"        
+        try:
+            self.driver.find_element_by_xpath(botao_proximo).click()
+            time.sleep(3)
+            return True
+        except NoSuchElementException:
+            try:
+                self.curtir_foto()
+            except:
+                pass
+            print("- Usuário não possui mais fotos seguintes.")
+            return False
+
+    def curtir_sem_parar(self):
+        self.abrir_primeira_foto()
+        self.curtir_foto()
+        while(True):
+            prox_post = self.proxima_foto()
+    
+            if prox_post == True:
+    
+                """CURTIR FOTO"""
+                self.curtir_foto()
+                time.sleep(2)
+
+                """BOTÃO PRÓXIMO"""
+                self.proxima_foto()
+                time.sleep(2)    
+                
+            else:
+                print("- Não há mais fotos disponíveis para serem curtidas.")
+                break
+
+    def curtir_foto(self):
+        curtir = self.driver.find_element_by_class_name('fr66n')
+        soup = bs(curtir.get_attribute('innerHTML'),'html.parser')
+        if(soup.find('svg')['aria-label'] == 'Curtir'):
+            curtir.click()
+        time.sleep(2)
+
+    def fechar(self):
+        time.sleep(4)
+        self.driver.quit()
+
+    def maximizar_janela(self):
+        self.driver.maximize_window()
