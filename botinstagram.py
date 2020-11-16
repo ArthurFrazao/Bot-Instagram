@@ -100,3 +100,13 @@ class InstagramBot:
 
     def maximizar_janela(self):
         self.driver.maximize_window()
+
+    def curtir_foto_by_qntd(self, qntd):
+        self.abrir_primeira_foto()
+        self.curtir_foto()
+        i = 1
+        while(i < qntd):
+            self.proxima_foto()
+            time.sleep(2)
+            self.curtir_foto()
+            i+=1      
