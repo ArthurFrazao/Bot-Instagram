@@ -1,21 +1,19 @@
 from botinstagram import InstagramBot
 import getpass, time
 
+"""próximas atualizações:
+- incluir no bot opções de seguir perfil e de pesquisar mais de 1 perfil"""
+
 def main():
-  """ Login Instagram """
-  usuario = input("Nome de usuario: ")
-  senha = getpass.getpass('Senha: ')
-  perfil = input("Pesquisar perfil: ")
-
-  """ Usuario e Senha do instagram utilizados para fazer login na conta """
-  instaBot = InstagramBot(usuario, senha)
-  instaBot.maximizar_janela()
-  instaBot.login()
-
-  """ Perfil que deseja pesquisar """
-  instaBot.abrir_perfil(perfil)
-  instaBot.curtir_sem_parar()
-  instaBot.fechar()
-  
+    usuario = input("Nome de usuario: ")
+    senha = getpass.getpass("Senha: ")   
+    perfil = input("Pesquisar perfil: ")
+    instaBot = InstagramBot(usuario, senha)
+    instaBot.maximizar_janela()
+    instaBot.login()
+    instaBot.abrir_perfil(perfil)
+    instaBot.curtir_sem_parar()
+    instaBot.fechar()
+    
 if __name__ == "__main__":
-    main() 
+    main()
