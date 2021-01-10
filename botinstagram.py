@@ -109,5 +109,4 @@ class InstagramBot:
             self.proxima_foto()
             time.sleep(2)
             self.curtir_foto()
-            i+=1
-       
+            i+=1      
