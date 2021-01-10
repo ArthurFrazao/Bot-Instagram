@@ -7,7 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup as bs
 import time, getpass
 
-driver = webdriver.Firefox(executable_path=r'C:\Users\arthu\Documents\Projetos\BotInstagram\geckodriver\geckodriver.exe')
+# Add your path geckodriver
+driver = webdriver.Firefox(executable_path=r'C:...')
 
 class InstagramBot:
     def __init__(self):
