@@ -12,10 +12,9 @@ Utilizaremos a linguagem Python e a biblioteca Selenium WebDriver na qual fornec
 
 ### 🛠️ Construído com
 
-Nesse projeto foi utilizado Python, Selenium e o webDriver Firefox, no entanto fica a escolha do desenvolvedor ou cliente.
+Nesse projeto foi utilizado Python, Selenium e o webDriver Firefox, no entanto fica a escolha do desenvolvedor ou cliente o navegador que será usado como interface.
 
 ### 📦 Instalação
-
 
 > Instalando o WebDriver:
 
@@ -26,7 +25,6 @@ Links para alguns dos drivers de navegador mais populares:
 - Chrome:	https://sites.google.com/a/chromium.org/chromedriver/downloads 
 - Firefox:	https://github.com/mozilla/geckodriver/releases
 - Safári:	https://webkit.org/blog/6900/webdriver-support-in-safari-10/
-
 
 > Instalando o Selenium:
 
