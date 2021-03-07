@@ -50,4 +50,5 @@ Se quiser contribuir com esse projeto, seja corrigindo problemas, adicionando co
 * Favorite esse repositório ❤️
 
 Este projeto está sob a licença MIT.
+
 Feito por [Arthur Frazão](https://www.linkedin.com/in/arthurfrazao/) 👋🏻.
