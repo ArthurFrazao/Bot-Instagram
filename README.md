@@ -22,9 +22,9 @@ O Selenium requer que um driver faça interface com o navegador escolhido. Nesse
 
 Links para alguns dos drivers de navegador mais populares:
 
-Chrome:	https://sites.google.com/a/chromium.org/chromedriver/downloads 
-Firefox:	https://github.com/mozilla/geckodriver/releases
-Safári:	https://webkit.org/blog/6900/webdriver-support-in-safari-10/
+- Chrome:	https://sites.google.com/a/chromium.org/chromedriver/downloads 
+- Firefox:	https://github.com/mozilla/geckodriver/releases
+- Safári:	https://webkit.org/blog/6900/webdriver-support-in-safari-10/
 
 > Instalando o Selenium:
 
