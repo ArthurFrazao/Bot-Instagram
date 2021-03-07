@@ -16,6 +16,7 @@ Nesse projeto foi utilizado Python, Selenium e o webDriver Firefox, no entanto f
 
 ### 📦 Instalação
 
+
 > Instalando o WebDriver:
 
 O Selenium requer que um driver faça interface com o navegador escolhido. Nesse projeto foi utilizado o navegador Firefox que requer o **geckodriver** que precisa ser instalado antes de iniciar os testes. Outros navegadores suportados terão seus próprios drivers disponíveis. 
@@ -25,6 +26,7 @@ Links para alguns dos drivers de navegador mais populares:
 - Chrome:	https://sites.google.com/a/chromium.org/chromedriver/downloads 
 - Firefox:	https://github.com/mozilla/geckodriver/releases
 - Safári:	https://webkit.org/blog/6900/webdriver-support-in-safari-10/
+
 
 > Instalando o Selenium:
 
