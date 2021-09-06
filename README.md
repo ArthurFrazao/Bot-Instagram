@@ -4,7 +4,7 @@ O Bot Instagram é um programa desenvolvido em Python e utilizando a biblioteca 
 
 ## 🚀 Começando
 
-Esse projeto consiste em automatizar tarefas e ações habituais que fazemos ao navegar no Instagram, como: fazer login, curtir publicações, seguir e desseguir perfis, comentar, enviar direct, etc.
+Esse projeto consiste em automatizar tarefas e ações habituais que fazemos ao navegar no Instagram, como: fazer login, curtir publicações, seguir ou parar de seguir perfis, comentar, enviar direct, etc.
 
 Inicialmente, o projeto foi criado com o intuito de apenas ter as funções de fazer login e seguir perfil mas atualmente já foi incluído diversas outras funções conforme ditas.
 
@@ -12,9 +12,9 @@ Utilizaremos a linguagem Python e a biblioteca Selenium WebDriver na qual fornec
 
 ### 🛠️ Construído com
 
-Nesse projeto foi utilizado Python, Selenium e o webDriver Firefox, no entanto fica a escolha do desenvolvedor ou cliente o navegador que será usado como interface.
+Nesse projeto foi utilizado Python, Selenium e o webDriver Chrome, no entanto fica a escolha do desenvolvedor o navegador que será usado como interface.
 
-### 📦 Instalação
+### 📦 Instalação de ferramentas
 
 > Instalando o WebDriver:
 
